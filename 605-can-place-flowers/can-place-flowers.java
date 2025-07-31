@@ -16,13 +16,7 @@ class Solution {
        }
        return count>=n;
     }
-    public static void main (String[]args){
-        Solution sol=new Solution();
-        int[] flowerbed1={1,0,0,0,1};
-        System.out.println(sol.canPlaceFlowers(flowerbed1,1));
-        int[] flowerbed2={1,0,0,0,1};
-        System.out.println(sol.canPlaceFlowers(flowerbed2,2));
-    }
+    
 }
 
    
