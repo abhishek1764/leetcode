@@ -5,32 +5,28 @@ class Solution {
 
         int[] left = new int[n];
         int[] right = new int[n];
+        Stack<Integer> stack = new Stack<>();
 
-        Stack<int[]> stack = new Stack<>();
-
-        // Compute left: strictly greater (count subarrays ending at i)
+        // Left: distance to previous smaller element
         for (int i = 0; i < n; i++) {
-            int count = 1;
-            while (!stack.isEmpty() && stack.peek()[0] > arr[i]) {
-                count += stack.pop()[1];
+            while (!stack.isEmpty() && arr[stack.peek()] > arr[i]) {
+                stack.pop();
             }
-            stack.push(new int[]{arr[i], count});
-            left[i] = count;
+            left[i] = stack.isEmpty() ? i + 1 : i - stack.peek();
+            stack.push(i);
         }
 
         stack.clear();
 
-        // Compute right: greater OR equal (count subarrays starting at i)
+        // Right: distance to next smaller or equal element
         for (int i = n - 1; i >= 0; i--) {
-            int count = 1;
-            while (!stack.isEmpty() && stack.peek()[0] >= arr[i]) {
-                count += stack.pop()[1];
+            while (!stack.isEmpty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
             }
-            stack.push(new int[]{arr[i], count});
-            right[i] = count;
+            right[i] = stack.isEmpty() ? n - i : stack.peek() - i;
+            stack.push(i);
         }
 
-        // Final sum
         long result = 0;
         for (int i = 0; i < n; i++) {
             result = (result + (long) arr[i] * left[i] * right[i]) % MOD;
