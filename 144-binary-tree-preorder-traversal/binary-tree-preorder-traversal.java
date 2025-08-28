@@ -14,17 +14,39 @@
  * }
  */
 class Solution {
-    public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        helper(root , list);
-        return list ;
+     public List<Integer> preorderTraversal(TreeNode root) {
+         List<Integer> list = new ArrayList<>();
+        if(root == null){
+            return list;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+       
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            list.add(node.val);
+            if(node.right!=null){
+                stack.push(node.right);
+            }
+            if(node.left!=null){
+                stack.push(node.left);
+            }
+        }
+        return list;
+
     }
-
-    void helper(TreeNode root , List<Integer>list){
-            if(root == null)return;
-
-    list.add(root.val);
-    helper(root.left , list);
-     helper(root.right , list);
-}
+    // public List<Integer> preorderTraversalRec(TreeNode root) {
+    //     List<Integer> list = new ArrayList<>();
+    //     helper(root, list);
+    //     return list;
+    // }
+    // void helper(TreeNode root, List<Integer> list){
+    //     if(root == null){
+    //         return ;
+    //     }
+    //     // PLR
+    //     list.add(root.val);
+    //     helper(root.left, list);
+    //     helper(root.right, list);
+    // }
 }
